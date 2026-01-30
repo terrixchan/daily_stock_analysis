@@ -132,9 +132,11 @@ class BaostockFetcher(BaseFetcher):
         code = code.replace('.SH', '').replace('.SZ', '').replace('.sh', '').replace('.sz', '')
         
         # 根据代码前缀判断市场
-        if code.startswith(('600', '601', '603', '688')):
+        sh_prefixes = ('600', '601', '603', '688', '51', '52', '56', '58')
+        sz_prefixes = ('000', '002', '300', '15', '16', '18')
+        if code.startswith(sh_prefixes):
             return f"sh.{code}"
-        elif code.startswith(('000', '002', '300')):
+        elif code.startswith(sz_prefixes):
             return f"sz.{code}"
         else:
             logger.warning(f"无法确定股票 {code} 的市场，默认使用深市")

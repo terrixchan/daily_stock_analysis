@@ -194,9 +194,11 @@ class TushareFetcher(BaseFetcher):
         # 根据代码前缀判断市场
         # 沪市：600xxx, 601xxx, 603xxx, 688xxx (科创板)
         # 深市：000xxx, 002xxx, 300xxx (创业板)
-        if code.startswith(('600', '601', '603', '688')):
+        sh_prefixes = ('600', '601', '603', '688', '51', '52', '56', '58')
+        sz_prefixes = ('000', '002', '300', '15', '16', '18')
+        if code.startswith(sh_prefixes):
             return f"{code}.SH"
-        elif code.startswith(('000', '002', '300')):
+        elif code.startswith(sz_prefixes):
             return f"{code}.SZ"
         else:
             # 默认尝试深市
