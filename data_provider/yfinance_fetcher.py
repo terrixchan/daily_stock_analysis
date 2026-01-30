@@ -104,10 +104,12 @@ class YfinanceFetcher(BaseFetcher):
         # 去除可能的 .SH 后缀
         code = code.replace('.SH', '')
 
-        # A股：根据代码前缀判断市场
-        if code.startswith(('600', '601', '603', '688')):
+        # A股：根据代码前缀判断市场（含 ETF）
+        sh_prefixes = ('600', '601', '603', '688', '51', '52', '56', '58')
+        sz_prefixes = ('000', '002', '300', '15', '16', '18')
+        if code.startswith(sh_prefixes):
             return f"{code}.SS"
-        elif code.startswith(('000', '002', '300')):
+        elif code.startswith(sz_prefixes):
             return f"{code}.SZ"
         else:
             logger.warning(f"无法确定股票 {code} 的市场，默认使用深市")

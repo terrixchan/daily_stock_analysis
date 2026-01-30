@@ -168,7 +168,8 @@ class PytdxFetcher(BaseFetcher):
         # 根据代码前缀判断市场
         # 上海：60xxxx, 68xxxx（科创板）
         # 深圳：00xxxx, 30xxxx（创业板）, 002xxx（中小板）
-        if code.startswith(('60', '68')):
+        sh_prefixes = ('60', '68', '51', '52', '56', '58')
+        if code.startswith(sh_prefixes):
             return 1, code  # 上海
         else:
             return 0, code  # 深圳
